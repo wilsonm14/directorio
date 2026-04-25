@@ -9,12 +9,6 @@ pipeline {
             }
         }
 
-        stage('Clonar Repo') {
-            steps {
-                git 'https://github.com/wilsonm14/directorio.git'
-            }
-        }
-
         stage('Verificar repo') {
             steps {
                 sh 'ls -la'
