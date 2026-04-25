@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 echo 'Build'
@@ -16,7 +17,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploy'
+                echo 'Levantando microservicios...'
+                sh 'docker-compose up -d'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh 'docker ps'
             }
         }
     }
