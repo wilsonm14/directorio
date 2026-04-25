@@ -1,0 +1,31 @@
+services:
+
+  users-service:
+    image: wilsonmz/users-service
+    ports:
+      - "3001:3000"
+
+  business-service:
+    image: wilsonmz/business-service
+    ports:
+      - "3002:3000"
+
+  orders-service:
+    image: wilsonmz/orders-service
+    ports:
+      - "3003:3000"
+
+  search-service:
+    image: wilsonmz/search-service
+    ports:
+      - "3004:3000"
+
+  gateway:
+    image: wilsonmz/gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - users-service
+      - business-service
+      - orders-service
+      - search-service
