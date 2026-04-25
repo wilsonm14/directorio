@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Levantando microservicios...'
-                sh 'docker compose up -d'
+                sh 'docker-compose up -d' 
             }
         }
 
