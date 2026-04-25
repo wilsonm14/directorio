@@ -9,9 +9,9 @@ pipeline {
             }
         }
 
-        stage('Verificar repo') {
+        stage('Clonar Repo') {
             steps {
-                sh 'ls -la'
+                git 'https://github.com/wilsonm14/directorio.git'
             }
         }
 
@@ -23,12 +23,18 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Levantando microservicios...'
-                sh 'docker-compose up -d' 
+                echo 'Levantando contenedores...'
+                sh '''
+                docker run -d -p 3001:3000 wilsonmz/users-service
+                docker run -d -p 3002:3000 wilsonmz/business-service
+                docker run -d -p 3003:3000 wilsonmz/orders-service
+                docker run -d -p 3004:3000 wilsonmz/search-service
+                docker run -d -p 3000:3000 wilsonmz/gateway
+                '''
             }
         }
 
-        stage('Verificar contenedores') {
+        stage('Verificar') {
             steps {
                 sh 'docker ps'
             }
