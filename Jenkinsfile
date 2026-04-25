@@ -17,8 +17,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Levantando microservicios...'
-                sh 'docker compose up -d'
+                echo 'Levantando contenedores manualmente...'
+
+                sh 'docker run -d -p 3001:3000 wilsonmz/users-service'
+                sh 'docker run -d -p 3002:3000 wilsonmz/business-service'
+                sh 'docker run -d -p 3003:3000 wilsonmz/orders-service'
+                sh 'docker run -d -p 3004:3000 wilsonmz/search-service'
+                sh 'docker run -d -p 3000:3000 wilsonmz/gateway'
             }
         }
 
