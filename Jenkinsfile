@@ -53,5 +53,12 @@ pipeline {
                 sh 'docker ps'
             }
         }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Levantando microservicios...'
+                sh 'docker compose up -d'
+    }
+}
     }
 }
