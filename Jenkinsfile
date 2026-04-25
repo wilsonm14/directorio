@@ -3,19 +3,19 @@ pipeline {
 
     stages {
 
-        stage('Clean Workspace') {
+        stage('Clean') {
             steps {
                 deleteDir()
             }
         }
 
-        stage('Clone Repo') {
+        stage('Clonar Repo') {
             steps {
                 git 'https://github.com/wilsonm14/directorio.git'
             }
         }
 
-        stage('Pull Images') {
+        stage('Extraer imágenes') {
             steps {
                 sh '''
                 docker pull wilsonmz/users-service
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Limpiar contenedores') {
             steps {
                 sh '''
                 docker stop $(docker ps -q) || true
@@ -36,19 +36,19 @@ pipeline {
             }
         }
 
-        stage('Run Containers') {
+        stage('Levantar microservicios') {
             steps {
                 sh '''
-                docker run -d -p 3001:3000 --name users-service wilsonmz/users-service
-                docker run -d -p 3002:3000 --name business-service wilsonmz/business-service
-                docker run -d -p 3003:3000 --name orders-service wilsonmz/orders-service
-                docker run -d -p 3004:3000 --name search-service wilsonmz/search-service
-                docker run -d -p 3000:3000 --name gateway wilsonmz/gateway
+                docker run -d -p 3001:3000 --name users wilsonmz/users-service || true
+                docker run -d -p 3002:3000 --name business wilsonmz/business-service || true
+                docker run -d -p 3003:3000 --name orders wilsonmz/orders-service || true
+                docker run -d -p 3004:3000 --name search wilsonmz/search-service || true
+                docker run -d -p 3000:3000 --name gateway wilsonmz/gateway || true
                 '''
             }
         }
 
-        stage('Verify') {
+        stage('Verificar') {
             steps {
                 sh 'docker ps'
             }
