@@ -24,9 +24,7 @@ app.get('/orders', async (req, res) => {
     const result = [];
 
     for (let order of orders) {
-
-      
-
+     
       // usuario
       const userResponse = await axios.get('http://host.docker.internal:3001/users');
       
