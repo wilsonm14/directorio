@@ -28,7 +28,8 @@ app.get('/orders', async (req, res) => {
       
 
       // usuario
-      const userResponse = await axios.get('http://users-service:3000/users');
+      const userResponse = await axios.get('http://host.docker.internal:3001/users');
+      
       const user = userResponse.data.find(u => u.id === order.userId);
 
       // negocio
