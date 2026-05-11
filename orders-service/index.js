@@ -33,7 +33,8 @@ app.get('/orders', async (req, res) => {
       const user = userResponse.data.find(u => u.id === order.userId);
 
       // negocio
-      const businessResponse = await axios.get('http://business-service:3000/business');
+      const businessResponse = await axios.get('http://host.docker.internal:3002/business');
+      
       const business = businessResponse.data.find(b => b.id === order.businessId);
 
       result.push({
