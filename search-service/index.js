@@ -8,8 +8,9 @@ app.get('/search', async (req, res) => {
   try {
     const { name, category } = req.query;
 
+
     // llamar al business-service
-    const response = await axios.get('http://business-service:3000/business');
+    const response = await axios.get('http://host.docker.internal:3002/business');
    
     let results = response.data;
 
