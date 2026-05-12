@@ -2,26 +2,37 @@ services:
 
   users-service:
     image: wilsonmz/users-service
+    container_name: users-service
     ports:
       - "3001:3000"
 
   business-service:
     image: wilsonmz/business-service
+    container_name: business-service
     ports:
       - "3002:3000"
 
   orders-service:
     image: wilsonmz/orders-service
+    container_name: orders-service
     ports:
       - "3003:3000"
+    depends_on:
+      - users-service
+      - business-service
 
   search-service:
     image: wilsonmz/search-service
+    container_name: search-service
     ports:
       - "3004:3000"
+    depends_on:
+      - users-service
+      - business-service
 
   gateway:
     image: wilsonmz/gateway
+    container_name: gateway
     ports:
       - "3000:3000"
     depends_on:
