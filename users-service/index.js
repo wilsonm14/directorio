@@ -28,6 +28,10 @@ app.post('/users', (req, res) => {
   res.json(user);
 });
 
-app.listen(3000, () => {
-  console.log("Users Service running on port 3000");
-});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Users Service running');
+  });
+}
+
+module.exports = app;

@@ -57,6 +57,10 @@ app.post('/orders', (req, res) => {
   res.json(order);
 });
 
-app.listen(3000, () => {
-  console.log("Orders Service running on port 3000");
-});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Orders Service running');
+  });
+}
+
+module.exports = app;

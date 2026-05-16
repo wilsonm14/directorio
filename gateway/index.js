@@ -46,6 +46,10 @@ app.get('/search', async (req, res) => {
   res.json(response.data);
 });
 
-app.listen(3000, () => {
-  console.log("Gateway running on port 3000");
-});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Gateway running');
+  });
+}
+
+module.exports = app;

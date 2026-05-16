@@ -28,6 +28,10 @@ app.post('/business', (req, res) => {
   res.json(business);
 });
 
-app.listen(3000, () => {
-  console.log("Business Service running on port 3000");
-});
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('Business Service running');
+  });
+}
+
+module.exports = app;

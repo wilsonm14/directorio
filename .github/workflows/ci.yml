@@ -1,0 +1,65 @@
+name: Microservices CI Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - users-service
+          - business-service
+          - orders-service
+          - search-service
+          - gateway
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.service }}
+
+    steps:
+
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar tests
+        run: npm test
+
+      - name: Ejecutar ESLint
+        run: npm run lint
+
+  docker:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - users-service
+          - business-service
+          - orders-service
+          - search-service
+          - gateway
+
+    steps:
+
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ${{ matrix.service }} ./${{ matrix.service }}
